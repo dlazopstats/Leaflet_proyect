@@ -1,0 +1,30 @@
+---
+title: "Mapa de Lima"
+author: "Diego Alonso Lazo Paz"
+date: "7/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(leaflet);library(dplyr)
+```
+
+## Lima
+
+Is the capital of Perú, an also the most populated city in the country. I will show the population by the most important district of the citt. 
+
+```{r cars}
+md_lima <- data.frame(name = c("San Juan de Lurigancho", "San Martin de Porres", "Ate", "Comas", "Villa el Salvador", "Villa Maria del Triunfo", "Callao", "San Juan de Miraflores", "Los Olivos", "Puente Piedra"),
+                        pop = c(1105725, 711149, 638345, 532403, 469189,
+                                454861, 426649, 409113, 377532, 357837),
+                        lat = c(-12.002222,-11.980556,-12.027778,-11.933333,-12.21917,-12.156944,-12.052263,-12.151444,-11.970278,-11.875      ),
+                        lng = c(-77.008333,-77.097222,-76.916667,-77.066667,-76.94532,-76.931389,-77.139113,-76.970042,-77.073889,-77.065278))
+
+md_lima %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircles(weight = 1, radius = sqrt(md_lima$pop)*5) %>% 
+  addMarkers(~lng, ~lat, label = ~name)
+```
+
